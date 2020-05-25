@@ -10,6 +10,7 @@
 	<link rel="stylesheet" href="<?= base_url(); ?>vendor/bootstrap/dist/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<?= base_url(); ?>vendor/font-awesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="<?= base_url(); ?>vendor/adminlte/css/AdminLTE.css">
+	<link rel="stylesheet" href="<?= base_url(); ?>vendor/iCheck/square/blue.css">
 	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 
@@ -37,6 +38,15 @@
 							<input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
 							<?php echo form_error('password'); ?>
 						</div>
+						<div class="row">
+							<div class="col-xs-8">
+								<div class="checkbox icheck">
+									<label>
+										<input type="checkbox" id="remember" name="remember"> Remember Me
+									</label>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class="box-footer">
 						<div class="form-group">
@@ -55,8 +65,13 @@
 
 <script src="<?= base_url(); ?>vendor/jquery/dist/jquery.min.js"></script>
 <script src="<?= base_url(); ?>vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="<?= base_url(); ?>vendor/iCheck/icheck.min.js"></script>
 <script>
 	$(document).ready(function() {
-
+		$('input').iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '20%' /* optional */
+    });
 	});
 </script>

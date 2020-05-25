@@ -18,7 +18,7 @@
 					</span>
 				</a>
 				<ul class="treeview-menu">
-					<li><a href="<?=site_url();?>admin/survey/create"><i class="fa fa-plus"></i> Buat Survey</a></li>
+					<li><a href="<?=site_url();?>admin/survey/create/new"><i class="fa fa-plus"></i> Buat Survey</a></li>
 					<li><a href="<?=site_url();?>admin/survey"><i class="fa fa-circle-o"></i> List Survey</a></li>
 				</ul>
 			</li>

@@ -11,7 +11,7 @@
  Target Server Version : 50539
  File Encoding         : 65001
 
- Date: 21/05/2020 22:22:33
+ Date: 26/05/2020 04:33:49
 */
 
 SET NAMES utf8mb4;
@@ -28,13 +28,15 @@ CREATE TABLE `admin`  (
   `created_at` datetime NULL DEFAULT NULL,
   `updated_at` datetime NULL DEFAULT NULL,
   `deleted_at` datetime NULL DEFAULT NULL,
+  `cookies` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `remember` enum('0','1') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
 
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
-INSERT INTO `admin` VALUES ('891b5c44-4d19-4d10-94bb-1312fcf2f4a4', 'admin', '7aa92564f23e684600a14fe169254d6c5a80c48a', '2020-05-15 14:02:27', '2020-05-15 14:02:27', NULL);
+INSERT INTO `admin` VALUES ('891b5c44-4d19-4d10-94bb-1312fcf2f4a4', 'admin', '7aa92564f23e684600a14fe169254d6c5a80c48a', '2020-05-15 14:02:27', '2020-05-15 14:02:27', NULL, 'qubYWa3T6ZdFSgrm9BLk8SzyRmNyC8QVfjrWTKafv470Qn1Ex7Xqjw1LvUwOMhFg', '1');
 
 -- ----------------------------
 -- Table structure for answer
@@ -46,8 +48,17 @@ CREATE TABLE `answer`  (
   `id_question` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `type_respon` enum('1','2','3','4') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `desc_respon` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
+  `id_created` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of answer
+-- ----------------------------
+INSERT INTO `answer` VALUES ('428bc739-4d9f-4b9e-a420-4eba5c9aa92d', '9935a646-e3e7-46fa-973c-9fe1508ee5ff', 'd7517171-b934-43b4-b58c-35a238d3e840', '1', 'Setuju', '891b5c44-4d19-4d10-94bb-1312fcf2f4a4');
+INSERT INTO `answer` VALUES ('92abfce5-3ecb-4090-bfb6-9892197305b6', '9935a646-e3e7-46fa-973c-9fe1508ee5ff', 'c016f5f7-5c62-4df6-83cb-642ddef52d35', '2', 'qwe', '891b5c44-4d19-4d10-94bb-1312fcf2f4a4');
+INSERT INTO `answer` VALUES ('b98caf06-83f2-4fa5-8f20-e7b313ef5ba3', '9935a646-e3e7-46fa-973c-9fe1508ee5ff', 'd7517171-b934-43b4-b58c-35a238d3e840', '1', 'Tidak Setuju', '891b5c44-4d19-4d10-94bb-1312fcf2f4a4');
+INSERT INTO `answer` VALUES ('fd2e54f3-f35a-4dd9-b4f4-34f48ab459c9', '9935a646-e3e7-46fa-973c-9fe1508ee5ff', 'a6f744ae-8123-4f60-a5ba-a559084ae65b', '2', 'a', '891b5c44-4d19-4d10-94bb-1312fcf2f4a4');
 
 -- ----------------------------
 -- Table structure for master_survey
@@ -68,8 +79,7 @@ CREATE TABLE `master_survey`  (
 -- ----------------------------
 -- Records of master_survey
 -- ----------------------------
-INSERT INTO `master_survey` VALUES ('51192187-8548-4208-9ec0-271ee18ef2d1', 'askns', 'nskognos', '2020-01-01', '2020-01-01', '0', 'umum', 'N6NPCiOS');
-INSERT INTO `master_survey` VALUES ('7530c608-205c-4f92-96d2-64d360bf96f8', 'Test', 'Test', '2020-01-01', '2020-01-01', '0', 'umum', 'XASDdw8U');
+INSERT INTO `master_survey` VALUES ('9935a646-e3e7-46fa-973c-9fe1508ee5ff', 'test', 'test', '2020-01-01', '2020-01-01', '0', 'umum', 'OeW6wE5u');
 
 -- ----------------------------
 -- Table structure for question
@@ -81,8 +91,16 @@ CREATE TABLE `question`  (
   `desc` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
   `type_respon` enum('1','2','3','4') CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL COMMENT '1=y/n | 2=pg | 3=rating | 4=entry',
   `desc_respon` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
+  `id_created` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
+
+-- ----------------------------
+-- Records of question
+-- ----------------------------
+INSERT INTO `question` VALUES ('a6f744ae-8123-4f60-a5ba-a559084ae65b', '9935a646-e3e7-46fa-973c-9fe1508ee5ff', '33', '2', '44', '891b5c44-4d19-4d10-94bb-1312fcf2f4a4');
+INSERT INTO `question` VALUES ('c016f5f7-5c62-4df6-83cb-642ddef52d35', '9935a646-e3e7-46fa-973c-9fe1508ee5ff', '11', '2', '22', '891b5c44-4d19-4d10-94bb-1312fcf2f4a4');
+INSERT INTO `question` VALUES ('d7517171-b934-43b4-b58c-35a238d3e840', '9935a646-e3e7-46fa-973c-9fe1508ee5ff', 'a', '1', 'a', '891b5c44-4d19-4d10-94bb-1312fcf2f4a4');
 
 -- ----------------------------
 -- Table structure for responden
