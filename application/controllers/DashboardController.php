@@ -15,9 +15,15 @@ class DashboardController extends CI_Controller {
 		$data['content'] = 'dashboard/index';
 		$data['vitamin'] = 'dashboard/index_vitamin';
 
-		$data['admin_count'] = $this->mcore->count('admin', ['deleted_at' => NULL]);
+		$data['admin_count']        = $this->mcore->count('admin', ['deleted_at' => NULL]);
+		$data['survey_aktif_count'] = $this->mcore->count('master_survey', ['status_survey' => '1']);
+		$data['survey_close_count'] = $this->mcore->count('master_survey', ['status_survey' => '2']);
 
 		$this->template->template($data);
+
+		$mpdf = new \Mpdf\Mpdf();
+		$mpdf->WriteHTML('<h1>test</h1>');
+		$mpdf->Output();
 	}
 
 }

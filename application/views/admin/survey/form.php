@@ -76,7 +76,7 @@
 						</div>
 						<!-- /.box-body -->
 						<div class="box-footer">
-							<a href="<?=site_url();?>admin/survey" class="btn btn-default">Kembali ke List Survey</a>
+							<a href="<?=site_url();?>admin/survey/index" class="btn btn-default">Kembali ke List Survey</a>
 							<input type="hidden" id="id_temp" name="id_temp" value="<?=$temp_id_master_survey;?>">
 							<button type="submit" class="btn btn-info pull-right">Berikutnya</button>
 						</div>

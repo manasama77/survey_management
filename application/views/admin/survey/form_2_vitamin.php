@@ -31,9 +31,16 @@
 			.done(function(data){
 
 				html = `
-				<div class="row">
+				<div class="row" id="${data.res}">
 					<div class="col-sm-12">
 						<div class="box box-warning">
+							<div class="box-header with-border">
+								<div class="pull-right">
+									<button type="button" class="btn btn-danger btn-sm" onclick="deleteQuestion('${data.res}')">
+										<i class="fa fa-trash fa-fw"></i>
+									</button>
+								</div>
+							</div>
 							<div class="box-body">
 
 								<div class="form-group">
@@ -103,7 +110,6 @@
 					dataType: 'json',
 					beforeSend(){
 						$.blockUI();
-						emptyAnswer(i.data('id'));
 					}
 				})
 				.done(function(res){
@@ -156,7 +162,6 @@
 						dataType: 'json',
 						beforeSend(){
 							$.blockUI();
-							emptyAnswer(i.data('id'));
 						}
 					})
 					.done(function(res){
@@ -164,18 +169,72 @@
 						$.unblockUI();
 						let html = ``;
 						html = `
-						<div class="form-group">
+						<div class="form-group" id="${res.id}">
 							<div class="col-sm-6 col-sm-offset-2">
-								<input type="text" class="form-control" id="dua_a[]" name="dua_a[]" onchange="updateASatu('${res.id}', this)" required>
+								<input type="text" class="form-control" name="dua_a[]" onchange="updateASatu('${res.id}', this)" required>
+							</div>
+							<div class="col-sm-2">
+								<button type="button" class="btn btn-danger" onclick="deletePG('${res.id}')"><i class="fa fa-trash"></i></button>
 							</div>
 						</div>
 						`;
 						add_pg.parent().parent().prev().append(html);
-						console.log(add_pg.parent().parent().prev());
 
 					});
 
 
+				});
+			}else if(v == '3'){
+				$.ajax({
+					url: `<?=site_url();?>admin/survey/gen_a_tiga`,
+					method: 'get',
+					data: {
+						id_survey: id_master_survey.val(),
+						id_question: i.data('id')
+					},
+					dataType: 'json',
+					beforeSend(){
+						$.blockUI();
+					}
+				})
+				.done(function(res){
+					$.unblockUI();
+					console.log(res);
+
+					html = `
+					<div class="form-group">
+						<div class="col-sm-4 col-sm-offset-2">
+							<div class="input-group">
+								<input type="number" class="form-control" id="tiga_a[]" name="tiga_a[]" value="${res.value_a}" onchange="updateASatu('${res.id_a}', this)" required>
+								<span class="input-group-addon" style="background-color: #ccc;">S/d.</span>
+								<input type="number" class="form-control" id="tiga_b[]" name="tiga_b[]" value="${res.value_b}" onchange="updateASatu('${res.id_b}', this)" required>
+							</div>
+						</div>
+					</div>
+					`;
+
+					i.next('.dynamic_answer').html(html).show('slow');
+				});
+			}else if(v == '4'){
+				$.ajax({
+					url: `<?=site_url();?>admin/survey/gen_a_empat`,
+					method: 'get',
+					data: {
+						id_survey: id_master_survey.val(),
+						id_question: i.data('id')
+					},
+					dataType: 'json',
+					beforeSend(){
+						$.blockUI();
+					}
+				})
+				.done(function(res){
+					$.unblockUI();
+					console.log(res);
+
+					html = ``;
+
+					i.next('.dynamic_answer').html(html).show('slow');
 				});
 			}
 
@@ -224,9 +283,47 @@
 		});
 	}
 
-	function emptyAnswer(id_question)
+	function deleteQuestion(id_question)
 	{
-		console.log(id_question);
+		let a = confirm('Hapus Pertanyaan ?');
+
+		if(a == true){
+			$.ajax({
+				url: `<?=site_url();?>admin/survey/delete_question`,
+				method: 'post',
+				data: { id: id_question },
+				beforeSend(){
+					$.blockUI();
+				},
+				complete(){
+					$(`#${id_question}`).html(``);
+					x = total_question.val() - 1;
+					total_question.val(x);
+					$.unblockUI();
+				}
+			});
+		}
+
+	}
+
+	function deletePG(id_answer)
+	{
+		let a = confirm('Hapus Pilihan Ganda ?');
+
+		if(a == true){
+			$.ajax({
+				url: `<?=site_url();?>admin/survey/delete_pg`,
+				method: 'post',
+				data: { id: id_answer },
+				beforeSend(){
+					$.blockUI();
+				},
+				complete(){
+					$(`#${id_answer}`).remove();
+					$.unblockUI();
+				}
+			});
+		}
 
 	}
 </script>

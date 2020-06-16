@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class M_core extends CI_Model
 {
 
-  public function get($table, $select = '*', $where = NULL, $orderBy = NULL, $orderOrien = 'ASC', $limit = NULL, $offset = NULL)
+  public function get($table, $select = '*', $where = NULL, $orderBy = NULL, $orderOrien = 'ASC', $limit = NULL, $offset = NULL, $groupBy = NULL)
   {
     $this->db->select($select);
     if ($where != NULL) {
@@ -14,6 +14,11 @@ class M_core extends CI_Model
     if($orderBy != NULL){
     	$this->db->order_by($orderBy, $orderOrien);
     }
+
+    if($groupBy != NULL){
+    	$this->db->group_by($groupBy);
+    }
+
     return $this->db->get($table, $limit, $offset);
   }
 
