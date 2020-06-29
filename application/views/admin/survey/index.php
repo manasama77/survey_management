@@ -12,15 +12,15 @@
 			<div class="box box-info">
 				<div class="box-body">
 					<div class="table-responsive">
-						<table id="datatables" class="table table-bordered small" style="width:1000px;">
+						<table id="datatables" class="table table-bordered">
 							<thead>
 								<tr>
-									<th>Survey</th>
-									<th style="min-width: 120px;">Periode</th>
+									<th style="width: 150px;">Survey</th>
+									<th style="width: 150px;">Periode</th>
 									<th>Status</th>
 									<th>Responden</th>
-									<th>URL</th>
-									<th class="text-center" style="min-width: 300px;"><i class="fa fa-cogs"></i></th>
+									<th style="width: 200px;">URL</th>
+									<th class="text-center" style="width: 300px;"><i class="fa fa-cogs"></i></th>
 								</tr>
 							</thead>
 						</table>

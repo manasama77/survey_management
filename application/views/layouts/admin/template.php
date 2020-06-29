@@ -64,9 +64,19 @@
 	<script src="<?=base_url();?>vendor/adminlte/js/demo.js"></script>
 	<script src="<?=base_url();?>vendor/blockui/jquery.blockUI.js"></script>
 	<script>
-		$('.sidebar-menu').tree();
-	</script>
+		let tree = $('.sidebar-menu').tree();
+		var url = window.location;
 
+		$('ul.sidebar-menu a').filter(function() {
+			return this.href == url;
+		}).parent().siblings().removeClass('active').end().addClass('active');
+
+		$('ul.treeview-menu a').filter(function() {
+			if(url == '<?=site_url();?>admin/survey/create_question'){ url = '<?=site_url();?>admin/survey/create/new'; }
+			return this.href == url;
+		}).parentsUntil(".sidebar-menu > .treeview-menu").siblings().removeClass('active').end().addClass('active');
+
+	</script>
 	<?php $this->load->view('admin/'.$vitamin); ?>
 </body>
 </html>

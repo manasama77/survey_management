@@ -20,10 +20,6 @@ class DashboardController extends CI_Controller {
 		$data['survey_close_count'] = $this->mcore->count('master_survey', ['status_survey' => '2']);
 
 		$this->template->template($data);
-
-		$mpdf = new \Mpdf\Mpdf();
-		$mpdf->WriteHTML('<h1>test</h1>');
-		$mpdf->Output();
 	}
 
 }

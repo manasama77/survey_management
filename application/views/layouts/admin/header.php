@@ -32,14 +32,8 @@
 								<?=strtoupper($this->session->userdata(SESS.'username'));?>
 							</p>
 						</li>
-						<!-- Menu Footer-->
 						<li class="user-footer">
-							<div class="pull-left">
-								<a href="#" class="btn btn-default btn-flat">Profile</a>
-							</div>
-							<div class="pull-right">
-								<a href="<?=site_url();?>logout/admin" class="btn btn-default btn-flat">Sign out</a>
-							</div>
+							<a href="<?=site_url();?>logout/admin" class="btn btn-danger btn-block" style="color: #000 !important;"><i class="fa fa-sign-out"></i> Sign out</a>
 						</li>
 					</ul>
 				</li>

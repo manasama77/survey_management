@@ -12,7 +12,7 @@
 			<div class="box box-info">
 				<div class="box-body">
 					<div class="table-responsive">
-						<table id="datatables" class="table table-bordered small">
+						<table id="datatables" class="table table-bordered small" style="width: 100%;">
 							<thead>
 								<tr>
 									<th>Username</th>

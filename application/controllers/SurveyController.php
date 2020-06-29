@@ -391,8 +391,8 @@ class SurveyController extends CI_Controller {
 			$row['id']               = $field->id;
 			$row['nama_survey']      = $field->nama_survey;
 			$row['desc_survey']      = $field->desc_survey;
-			$row['periode_survey_1'] = $periode_1->createFromFormat('Y-m-d', $field->periode_survey_1)->format('d-M-Y');
-			$row['periode_survey_2'] = $periode_2->createFromFormat('Y-m-d', $field->periode_survey_2)->format('d-M-Y');
+			$row['periode_survey_1'] = $periode_1->createFromFormat('Y-m-d', $field->periode_survey_1)->format('d M Y');
+			$row['periode_survey_2'] = $periode_2->createFromFormat('Y-m-d', $field->periode_survey_2)->format('d M Y');
 
 			if($field->status_survey == '1'){
 				$status_survey = 'Aktif';

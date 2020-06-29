@@ -11,13 +11,14 @@
 		"source": "https://github.com/bcit-ci/CodeIgniter"
 	},
 	"require": {
-		"php": "^5.4.31"
+		"php": "^7.3.12",
+		"mpdf/mpdf": "^8.0",
+		"goat1000/svggraph": "^3.5"
 	},
 	"suggest": {
 	},
 	"require-dev": {
 	},
 	"config": {
-		"disable-tls": false
 	}
 }

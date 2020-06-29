@@ -470,9 +470,58 @@ class LaporanController extends CI_Controller {
 
 	public function export_survey_pdf($id_master_survey = NULL)
 	{
+		$where_master_survey = ['id' => $id_master_survey];
+		$arr_master_survey = $this->mcore->get('master_survey', '*', $where_master_survey, NULL, 'ASC', NULL, NULL);
+
+		if($arr_master_survey->num_rows() == 0)
+		{
+			show_error('Survey tidak ditemukan', 404, 'Terjadi kesalahan');
+			exit;
+		}
+
+		$where_responden = ['id_survey' => $id_master_survey];
+		$arr_responden   = $this->mcore->get('responden', '*', $where_responden, NULL, 'ASC', NULL, NULL);
+
+		if($arr_responden->num_rows() == 0)
+		{
+			show_error('Tidak ada Responden Survey', 404, 'Terjadi kesalahan');
+			exit;
+		}
+
+		$data['id_master_survey'] = $id_master_survey;
+		$data['nama_survey']      = $arr_master_survey->row()->nama_survey;
+		$data['desc_survey']      = $arr_master_survey->row()->desc_survey;
+		$data['jenis_responden']  = $arr_master_survey->row()->jenis_responden;
+		$data['url']              = $arr_master_survey->row()->url;
+		$data['periode_1_obj']    = new DateTime($arr_master_survey->row()->periode_survey_1);
+		$data['periode_2_obj']    = new DateTime($arr_master_survey->row()->periode_survey_2);
+
+		// $this->load->view('admin/laporan/render_pdf', $data);
+		$html = $this->load->view('admin/laporan/render_pdf', $data, TRUE);
+
 		$mpdf = new \Mpdf\Mpdf();
-		$mpdf->WriteHTML('<h1>Hello World!</h1>');
+		$mpdf->WriteHTML($html);
+		$mpdf->shrink_tables_to_fit;
 		$mpdf->Output();
+	}
+
+	public function gen_chart_satu($id_question)
+	{
+		// echo $id_question;
+		header('Content-type: image/svg+xml');
+		$settings = array(
+		  'back_colour' => 'white',
+		  'graph_title' => 'Pertanyaan 1'
+		);
+		$graph = new Goat1000\SVGGraph\SVGGraph(200, 200, $settings);
+
+		$graph->colours(['green','red']);
+		$data = [
+			'Setuju' => 2,
+			'Tidak Setuju' => 1,
+		];
+		$graph->values($data);
+		$graph->Render('HorizontalBarGraph');
 	}
 
 	public function _tipe_pertanyaan($tp)
@@ -486,8 +535,43 @@ class LaporanController extends CI_Controller {
 		}elseif($tp == '4'){
 			return 'Essay';
 		}
+	}
 
+	public function result_essay($id_master_survey)
+	{
+		$where_master_survey = ['id' => $id_master_survey];
+		$arr_master_survey = $this->mcore->get('master_survey', '*', $where_master_survey, NULL, 'ASC', NULL, NULL);
 
+		if($arr_master_survey->num_rows() == 0)
+		{
+			show_error('Survey tidak ditemukan', 404, 'Terjadi kesalahan');
+			exit;
+		}
+
+		$where_responden = ['id_survey' => $id_master_survey];
+		$arr_responden   = $this->mcore->get('responden', '*', $where_responden, NULL, 'ASC', NULL, NULL);
+
+		if($arr_responden->num_rows() == 0)
+		{
+			show_error('Tidak ada Responden Survey', 404, 'Terjadi kesalahan');
+			exit;
+		}
+
+		$data['id_master_survey'] = $id_master_survey;
+		$data['nama_survey']      = $arr_master_survey->row()->nama_survey;
+		$data['desc_survey']      = $arr_master_survey->row()->desc_survey;
+		$data['jenis_responden']  = $arr_master_survey->row()->jenis_responden;
+		$data['url']              = $arr_master_survey->row()->url;
+		$data['periode_1_obj']    = new DateTime($arr_master_survey->row()->periode_survey_1);
+		$data['periode_2_obj']    = new DateTime($arr_master_survey->row()->periode_survey_2);
+
+		$where_question = [
+			'id_survey'   => $id_master_survey,
+			'type_respon' => '4'
+		];
+		$data['arr_question']   = $this->mcore->get('question', '*', $where_question, 'no_urut', 'ASC', NULL, NULL);
+
+		$this->load->view('admin/laporan/rekap_essay', $data);
 	}
 
 }

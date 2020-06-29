@@ -56,8 +56,10 @@ $route['admin/survey/get_question']          = 'SurveyController/get_question';
 
 # LAPORAN
 // $route['admin/laporan/index/(:any)'] = 'LaporanController/index/$1';
-$route['admin/laporan/excel/(:any)'] = 'LaporanController/export_survey_xls/$1';
-$route['admin/laporan/pdf/(:any)']   = 'LaporanController/export_survey_pdf/$1';
+$route['admin/laporan/excel/(:any)']          = 'LaporanController/export_survey_xls/$1';
+$route['admin/laporan/pdf/(:any)']            = 'LaporanController/export_survey_pdf/$1';
+$route['admin/laporan/gen_chart_satu/(:any)'] = 'LaporanController/gen_chart_satu/$1';
+$route['admin/laporan/result_essay/(:any)']   = 'LaporanController/result_essay/$1';
 
 # UTILITY
 $route['admin/generate_uuid'] = 'UtilityController/generate_uuid';
